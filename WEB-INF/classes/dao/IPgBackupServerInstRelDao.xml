@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgBackupServerInstRelDao">
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+        <id column="rel_id" jdbcType="BIGINT" property="relId" />
+        <result column="pg_backup_server_id" jdbcType="BIGINT" property="pgBackupServerId" />
+        <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    rel_id, pg_backup_server_id, pg_inst_id
+  </sql>
+
+  <select id="selectByBackupServerId" resultType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_backup_server_inst_rel
+        where pg_backup_server_id = #{backupServerId,jdbcType=BIGINT}
+   </select>
+
+    <select id="selectByInstId" resultType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_backup_server_inst_rel
+        where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByInstIdAndBackupServerId" resultType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_backup_server_inst_rel
+        where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and pg_backup_server_id = #{backupServerId,jdbcType=BIGINT}
+    </select>
+
+
+  <delete id="deleteByBackupServerId">
+        delete from telepg_backup_server_inst_rel
+        where pg_backup_server_id = #{backupServerId,jdbcType=BIGINT}
+   </delete>
+
+   <delete id="deleteByInstId">
+        delete from telepg_backup_server_inst_rel
+        where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+   </delete>
+
+</mapper>

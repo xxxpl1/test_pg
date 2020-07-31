@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgTenantInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgTenantInfo">
+    <id column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="zookeeper_id" jdbcType="BIGINT" property="zookeeperId" />
+    <result column="secondary_namespace" jdbcType="VARCHAR" property="secondaryNamespace" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tenant_id, zookeeper_id, secondary_namespace
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_tenant_info
+    where tenant_id = #{tenantId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_tenant_info
+    where tenant_id = #{tenantId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgTenantInfo">
+    insert into telepg_tenant_info (tenant_id, zookeeper_id, secondary_namespace
+      )
+    values (#{tenantId,jdbcType=BIGINT}, #{zookeeperId,jdbcType=BIGINT}, #{secondaryNamespace,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgTenantInfo">
+    insert into telepg_tenant_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="zookeeperId != null">
+        zookeeper_id,
+      </if>
+      <if test="secondaryNamespace != null">
+        secondary_namespace,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="zookeeperId != null">
+        #{zookeeperId,jdbcType=BIGINT},
+      </if>
+      <if test="secondaryNamespace != null">
+        #{secondaryNamespace,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgTenantInfo">
+    update telepg_tenant_info
+    <set>
+      <if test="zookeeperId != null">
+        zookeeper_id = #{zookeeperId,jdbcType=BIGINT},
+      </if>
+      <if test="secondaryNamespace != null">
+        secondary_namespace = #{secondaryNamespace,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tenant_id = #{tenantId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgTenantInfo">
+    update telepg_tenant_info
+    set zookeeper_id = #{zookeeperId,jdbcType=BIGINT},
+      secondary_namespace = #{secondaryNamespace,jdbcType=VARCHAR}
+    where tenant_id = #{tenantId,jdbcType=BIGINT}
+  </update>
+</mapper>

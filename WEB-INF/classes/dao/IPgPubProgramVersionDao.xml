@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgPubProgramVersionDao">
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+        <id column="version_id" jdbcType="BIGINT" property="versionId" />
+        <result column="version_time" jdbcType="TIMESTAMP" property="versionTime" />
+        <result column="version_num" jdbcType="VARCHAR" property="versionNum" />
+        <result column="category" jdbcType="VARCHAR" property="category" />
+        <result column="upload_path" jdbcType="VARCHAR" property="uploadPath" />
+        <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+        <result column="upload_by" jdbcType="BIGINT" property="uploadBy" />
+        <result column="upload_name" jdbcType="VARCHAR" property="uploadName" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="size" jdbcType="DOUBLE" property="size" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        version_id, version_time, version_num, category, upload_path, upload_time, upload_by,
+        upload_name, status, size
+    </sql>
+
+    <select id="selectByCat" resultType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_pub_program_version
+        where category = #{category,jdbcType=VARCHAR}
+        <if test="status != null">
+            and status = #{status,jdbcType=TINYINT}
+        </if>
+    </select>
+
+    <select id="selectByCatAndVersion" resultType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_pub_program_version
+        where category = #{category,jdbcType=VARCHAR}
+        and status = 1
+        and version_num = #{versionNum,jdbcType=VARCHAR}
+        limit 1
+    </select>
+
+    <select id="selectAll" resultType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_pub_program_version;
+    </select>
+</mapper>

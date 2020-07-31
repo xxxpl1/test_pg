@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgInstParamMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgInstParam">
+    <id column="pg_inst_param_id" jdbcType="BIGINT" property="pgInstParamId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="constrain" jdbcType="TINYINT" property="constrain" />
+    <result column="candidates" jdbcType="VARCHAR" property="candidates" />
+    <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+    <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_inst_param_id, name, constrain, candidates, create_timestamp, update_timestamp, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_inst_param
+    where pg_inst_param_id = #{pgInstParamId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_inst_param
+    where pg_inst_param_id = #{pgInstParamId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgInstParam">
+    insert into telepg_inst_param (pg_inst_param_id, name, constrain, 
+      candidates, create_timestamp, update_timestamp, 
+      version)
+    values (#{pgInstParamId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{constrain,jdbcType=TINYINT}, 
+      #{candidates,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=TIMESTAMP}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgInstParam">
+    insert into telepg_inst_param
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgInstParamId != null">
+        pg_inst_param_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="constrain != null">
+        constrain,
+      </if>
+      <if test="candidates != null">
+        candidates,
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp,
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgInstParamId != null">
+        #{pgInstParamId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="constrain != null">
+        #{constrain,jdbcType=TINYINT},
+      </if>
+      <if test="candidates != null">
+        #{candidates,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgInstParam">
+    update telepg_inst_param
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="constrain != null">
+        constrain = #{constrain,jdbcType=TINYINT},
+      </if>
+      <if test="candidates != null">
+        candidates = #{candidates,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pg_inst_param_id = #{pgInstParamId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgInstParam">
+    update telepg_inst_param
+    set name = #{name,jdbcType=VARCHAR},
+      constrain = #{constrain,jdbcType=TINYINT},
+      candidates = #{candidates,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=VARCHAR}
+    where pg_inst_param_id = #{pgInstParamId,jdbcType=BIGINT}
+  </update>
+</mapper>

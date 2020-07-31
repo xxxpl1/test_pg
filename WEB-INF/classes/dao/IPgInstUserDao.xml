@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgInstUserDao">
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgInstUser">
+        <id column="pg_inst_user_id" jdbcType="BIGINT" property="pgInstUserId" />
+        <result column="pg_user_name" jdbcType="VARCHAR" property="pgUserName" />
+        <result column="pg_user_pw" jdbcType="VARCHAR" property="pgUserPw" />
+        <result column="pg_user_type" jdbcType="VARCHAR" property="pgUserType" />
+        <result column="is_admin" jdbcType="BIT" property="isAdmin" />
+        <result column="is_show" jdbcType="BIT" property="isShow" />
+        <result column="pg_user_state" jdbcType="VARCHAR" property="pgUserState" />
+        <result column="pg_user_create_timestamp" jdbcType="TIMESTAMP" property="pgUserCreateTimestamp" />
+        <result column="pg_user_update_timestamp" jdbcType="TIMESTAMP" property="pgUserUpdateTimestamp" />
+        <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+        <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        pg_inst_user_id, pg_user_name, pg_user_pw, pg_user_type, is_admin, is_show, pg_user_state,
+        pg_user_create_timestamp, pg_user_update_timestamp, pg_inst_id, tenant_id
+    </sql>
+
+    <!--1-->
+    <select id="selectByPgInstIDWithTenantId" resultType="com.ctgudal.pgsql.entity.TelepgInstUser"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_inst_user
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and pg_user_state != "9999"
+    </select>
+    <!--2-->
+    <select id="selectByInstIDWithTenantIdWithPgUserName" resultType="com.ctgudal.pgsql.entity.TelepgInstUser"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_inst_user
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and pg_user_name = #{pgUserName,jdbcType=VARCHAR}
+        and pg_user_state != "9999"
+    </select>
+
+    <delete id="deleteByByInstIDWithTenantId">
+        delete from telepg_inst_user
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and pg_user_state != "9999"
+    </delete>
+
+    <!--3-->
+    <delete id="deleteByByInstIDWithTenantIdWithPgUserName">
+        delete from telepg_inst_user
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and pg_user_name = #{pgUserName,jdbcType=VARCHAR}
+        and pg_user_state != "9999"
+    </delete>
+
+    <!--4-->
+    <update id="resetUserPasswordByPgInstWithTenantIdAndUserName">
+        update telepg_inst_user
+        set pg_user_pw = #{pgUserNewPw,jdbcType=VARCHAR},
+        pg_user_update_timestamp = #{pgUserUpdateTimestamp,jdbcType=TIMESTAMP}
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and pg_user_name = #{pgUserName,jdbcType=VARCHAR}
+        and pg_user_state != "9999"
+    </update>
+
+    <select id="selectAdminUser" resultType="com.ctgudal.pgsql.entity.TelepgInstUser" resultMap="BaseResultMap">
+        select pg_user_name, pg_user_pw
+        from telepg_inst_user
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and is_admin = 1 limit 1
+    </select>
+</mapper>

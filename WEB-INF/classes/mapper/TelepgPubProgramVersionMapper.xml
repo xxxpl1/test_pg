@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgPubProgramVersionMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+    <id column="version_id" jdbcType="BIGINT" property="versionId" />
+    <result column="version_time" jdbcType="TIMESTAMP" property="versionTime" />
+    <result column="version_num" jdbcType="VARCHAR" property="versionNum" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="upload_path" jdbcType="VARCHAR" property="uploadPath" />
+    <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime" />
+    <result column="upload_by" jdbcType="BIGINT" property="uploadBy" />
+    <result column="upload_name" jdbcType="VARCHAR" property="uploadName" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="size" jdbcType="DOUBLE" property="size" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    version_id, version_time, version_num, category, upload_path, upload_time, upload_by, 
+    upload_name, status, size
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_pub_program_version
+    where version_id = #{versionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_pub_program_version
+    where version_id = #{versionId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+    insert into telepg_pub_program_version (version_id, version_time, version_num, 
+      category, upload_path, upload_time, 
+      upload_by, upload_name, status, 
+      size)
+    values (#{versionId,jdbcType=BIGINT}, #{versionTime,jdbcType=TIMESTAMP}, #{versionNum,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{uploadPath,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, 
+      #{uploadBy,jdbcType=BIGINT}, #{uploadName,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{size,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+    insert into telepg_pub_program_version
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="versionId != null">
+        version_id,
+      </if>
+      <if test="versionTime != null">
+        version_time,
+      </if>
+      <if test="versionNum != null">
+        version_num,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="uploadPath != null">
+        upload_path,
+      </if>
+      <if test="uploadTime != null">
+        upload_time,
+      </if>
+      <if test="uploadBy != null">
+        upload_by,
+      </if>
+      <if test="uploadName != null">
+        upload_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="versionId != null">
+        #{versionId,jdbcType=BIGINT},
+      </if>
+      <if test="versionTime != null">
+        #{versionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionNum != null">
+        #{versionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadPath != null">
+        #{uploadPath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadBy != null">
+        #{uploadBy,jdbcType=BIGINT},
+      </if>
+      <if test="uploadName != null">
+        #{uploadName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+    update telepg_pub_program_version
+    <set>
+      <if test="versionTime != null">
+        version_time = #{versionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="versionNum != null">
+        version_num = #{versionNum,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadPath != null">
+        upload_path = #{uploadPath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadBy != null">
+        upload_by = #{uploadBy,jdbcType=BIGINT},
+      </if>
+      <if test="uploadName != null">
+        upload_name = #{uploadName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where version_id = #{versionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgPubProgramVersion">
+    update telepg_pub_program_version
+    set version_time = #{versionTime,jdbcType=TIMESTAMP},
+      version_num = #{versionNum,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      upload_path = #{uploadPath,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      upload_by = #{uploadBy,jdbcType=BIGINT},
+      upload_name = #{uploadName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      size = #{size,jdbcType=DOUBLE}
+    where version_id = #{versionId,jdbcType=BIGINT}
+  </update>
+</mapper>

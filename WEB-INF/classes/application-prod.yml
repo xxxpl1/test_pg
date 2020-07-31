@@ -1,0 +1,19 @@
+server:
+    port: 8778
+    servlet:
+        context-path: /postgresql
+spring:
+    datasource:
+        url: jdbc:mysql://10.142.90.28:3306/pg_admin?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+
+# 施工单相关属性
+order:
+    reply:
+        url: http://10.142.232.166:8775/deployment # PaaS回单url ，当order.enabled=true时有效
+
+version:
+    file:
+        local-path: ./appFile

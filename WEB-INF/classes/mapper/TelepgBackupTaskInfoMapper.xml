@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgBackupTaskInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    <id column="pg_backup_task_id" jdbcType="BIGINT" property="pgBackupTaskId" />
+    <result column="pg_backup_server_id" jdbcType="BIGINT" property="pgBackupServerId" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="pg_backup_base_info_id" jdbcType="BIGINT" property="pgBackupBaseInfoId" />
+    <result column="oper_type" jdbcType="TINYINT" property="operType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status_desc" jdbcType="VARCHAR" property="statusDesc" />
+    <result column="error" jdbcType="VARCHAR" property="error" />
+    <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+    <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    <result column="params" jdbcType="LONGVARCHAR" property="params" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_backup_task_id, pg_backup_server_id, tenant_id, user_id, pg_inst_id, pg_backup_base_info_id, 
+    oper_type, status, status_desc, error, create_timestamp, update_timestamp
+  </sql>
+  <sql id="Blob_Column_List">
+    params
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from telepg_backup_task_info
+    where pg_backup_task_id = #{pgBackupTaskId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_backup_task_info
+    where pg_backup_task_id = #{pgBackupTaskId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    insert into telepg_backup_task_info (pg_backup_task_id, pg_backup_server_id, tenant_id, 
+      user_id, pg_inst_id, pg_backup_base_info_id, 
+      oper_type, status, status_desc, 
+      error, create_timestamp, update_timestamp, 
+      params)
+    values (#{pgBackupTaskId,jdbcType=BIGINT}, #{pgBackupServerId,jdbcType=BIGINT}, #{tenantId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{pgInstId,jdbcType=VARCHAR}, #{pgBackupBaseInfoId,jdbcType=BIGINT}, 
+      #{operType,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{statusDesc,jdbcType=VARCHAR}, 
+      #{error,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=TIMESTAMP}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{params,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    insert into telepg_backup_task_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgBackupTaskId != null">
+        pg_backup_task_id,
+      </if>
+      <if test="pgBackupServerId != null">
+        pg_backup_server_id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="pgBackupBaseInfoId != null">
+        pg_backup_base_info_id,
+      </if>
+      <if test="operType != null">
+        oper_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusDesc != null">
+        status_desc,
+      </if>
+      <if test="error != null">
+        error,
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp,
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp,
+      </if>
+      <if test="params != null">
+        params,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgBackupTaskId != null">
+        #{pgBackupTaskId,jdbcType=BIGINT},
+      </if>
+      <if test="pgBackupServerId != null">
+        #{pgBackupServerId,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="pgBackupBaseInfoId != null">
+        #{pgBackupBaseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="operType != null">
+        #{operType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="statusDesc != null">
+        #{statusDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null">
+        #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="params != null">
+        #{params,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    update telepg_backup_task_info
+    <set>
+      <if test="pgBackupServerId != null">
+        pg_backup_server_id = #{pgBackupServerId,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="pgBackupBaseInfoId != null">
+        pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="operType != null">
+        oper_type = #{operType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="statusDesc != null">
+        status_desc = #{statusDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null">
+        error = #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="params != null">
+        params = #{params,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pg_backup_task_id = #{pgBackupTaskId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    update telepg_backup_task_info
+    set pg_backup_server_id = #{pgBackupServerId,jdbcType=BIGINT},
+      tenant_id = #{tenantId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT},
+      oper_type = #{operType,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      status_desc = #{statusDesc,jdbcType=VARCHAR},
+      error = #{error,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      params = #{params,jdbcType=LONGVARCHAR}
+    where pg_backup_task_id = #{pgBackupTaskId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgBackupTaskInfo">
+    update telepg_backup_task_info
+    set pg_backup_server_id = #{pgBackupServerId,jdbcType=BIGINT},
+      tenant_id = #{tenantId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT},
+      oper_type = #{operType,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      status_desc = #{statusDesc,jdbcType=VARCHAR},
+      error = #{error,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP}
+    where pg_backup_task_id = #{pgBackupTaskId,jdbcType=BIGINT}
+  </update>
+</mapper>

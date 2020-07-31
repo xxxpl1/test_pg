@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgBackupBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgBackupBaseInfo">
+    <id column="pg_backup_base_info_id" jdbcType="BIGINT" property="pgBackupBaseInfoId" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="backup_id" jdbcType="VARCHAR" property="backupId" />
+    <result column="backup_type" jdbcType="TINYINT" property="backupType" />
+    <result column="backup_label" jdbcType="VARCHAR" property="backupLabel" />
+    <result column="backup_name" jdbcType="VARCHAR" property="backupName" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="begin_wal" jdbcType="VARCHAR" property="beginWal" />
+    <result column="begin_offset" jdbcType="BIGINT" property="beginOffset" />
+    <result column="begin_xlog" jdbcType="VARCHAR" property="beginXlog" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="end_wal" jdbcType="VARCHAR" property="endWal" />
+    <result column="end_offset" jdbcType="BIGINT" property="endOffset" />
+    <result column="end_xlog" jdbcType="VARCHAR" property="endXlog" />
+    <result column="total_time" jdbcType="INTEGER" property="totalTime" />
+    <result column="backup_size" jdbcType="BIGINT" property="backupSize" />
+    <result column="backup_compress_size" jdbcType="BIGINT" property="backupCompressSize" />
+    <result column="backup_deduplicated_size" jdbcType="BIGINT" property="backupDeduplicatedSize" />
+    <result column="process" jdbcType="INTEGER" property="process" />
+    <result column="system_id" jdbcType="VARCHAR" property="systemId" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="timeline" jdbcType="VARCHAR" property="timeline" />
+    <result column="xlog_segment_size" jdbcType="BIGINT" property="xlogSegmentSize" />
+    <result column="pgdata" jdbcType="VARCHAR" property="pgdata" />
+    <result column="config_file" jdbcType="VARCHAR" property="configFile" />
+    <result column="hba_file" jdbcType="VARCHAR" property="hbaFile" />
+    <result column="ident_file" jdbcType="VARCHAR" property="identFile" />
+    <result column="backup_path" jdbcType="VARCHAR" property="backupPath" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="error" jdbcType="VARCHAR" property="error" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="isCompress" jdbcType="BIT" property="iscompress" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ctgudal.pgsql.entity.TelepgBackupBaseInfoWithBLOBs">
+    <result column="included_files" jdbcType="LONGVARCHAR" property="includedFiles" />
+    <result column="tablespaces" jdbcType="LONGVARCHAR" property="tablespaces" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_backup_base_info_id, tenant_id, pg_inst_id, backup_id, backup_type, backup_label, 
+    backup_name, begin_time, begin_wal, begin_offset, begin_xlog, end_time, end_wal, 
+    end_offset, end_xlog, total_time, backup_size, backup_compress_size, backup_deduplicated_size, 
+    process, system_id, version, timeline, xlog_segment_size, pgdata, config_file, hba_file, 
+    ident_file, backup_path, status, error, remark, isCompress
+  </sql>
+  <sql id="Blob_Column_List">
+    included_files, tablespaces
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from telepg_backup_base_info
+    where pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_backup_base_info
+    where pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgBackupBaseInfoWithBLOBs">
+    insert into telepg_backup_base_info (pg_backup_base_info_id, tenant_id, pg_inst_id, 
+      backup_id, backup_type, backup_label, 
+      backup_name, begin_time, begin_wal, 
+      begin_offset, begin_xlog, end_time, 
+      end_wal, end_offset, end_xlog, 
+      total_time, backup_size, backup_compress_size, 
+      backup_deduplicated_size, process, system_id, 
+      version, timeline, xlog_segment_size, 
+      pgdata, config_file, hba_file, 
+      ident_file, backup_path, status, 
+      error, remark, isCompress, 
+      included_files, tablespaces)
+    values (#{pgBackupBaseInfoId,jdbcType=BIGINT}, #{tenantId,jdbcType=BIGINT}, #{pgInstId,jdbcType=VARCHAR}, 
+      #{backupId,jdbcType=VARCHAR}, #{backupType,jdbcType=TINYINT}, #{backupLabel,jdbcType=VARCHAR}, 
+      #{backupName,jdbcType=VARCHAR}, #{beginTime,jdbcType=TIMESTAMP}, #{beginWal,jdbcType=VARCHAR}, 
+      #{beginOffset,jdbcType=BIGINT}, #{beginXlog,jdbcType=VARCHAR}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{endWal,jdbcType=VARCHAR}, #{endOffset,jdbcType=BIGINT}, #{endXlog,jdbcType=VARCHAR}, 
+      #{totalTime,jdbcType=INTEGER}, #{backupSize,jdbcType=BIGINT}, #{backupCompressSize,jdbcType=BIGINT}, 
+      #{backupDeduplicatedSize,jdbcType=BIGINT}, #{process,jdbcType=INTEGER}, #{systemId,jdbcType=VARCHAR}, 
+      #{version,jdbcType=VARCHAR}, #{timeline,jdbcType=VARCHAR}, #{xlogSegmentSize,jdbcType=BIGINT}, 
+      #{pgdata,jdbcType=VARCHAR}, #{configFile,jdbcType=VARCHAR}, #{hbaFile,jdbcType=VARCHAR}, 
+      #{identFile,jdbcType=VARCHAR}, #{backupPath,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{error,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{iscompress,jdbcType=BIT}, 
+      #{includedFiles,jdbcType=LONGVARCHAR}, #{tablespaces,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupBaseInfoWithBLOBs">
+    insert into telepg_backup_base_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgBackupBaseInfoId != null">
+        pg_backup_base_info_id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="backupId != null">
+        backup_id,
+      </if>
+      <if test="backupType != null">
+        backup_type,
+      </if>
+      <if test="backupLabel != null">
+        backup_label,
+      </if>
+      <if test="backupName != null">
+        backup_name,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="beginWal != null">
+        begin_wal,
+      </if>
+      <if test="beginOffset != null">
+        begin_offset,
+      </if>
+      <if test="beginXlog != null">
+        begin_xlog,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="endWal != null">
+        end_wal,
+      </if>
+      <if test="endOffset != null">
+        end_offset,
+      </if>
+      <if test="endXlog != null">
+        end_xlog,
+      </if>
+      <if test="totalTime != null">
+        total_time,
+      </if>
+      <if test="backupSize != null">
+        backup_size,
+      </if>
+      <if test="backupCompressSize != null">
+        backup_compress_size,
+      </if>
+      <if test="backupDeduplicatedSize != null">
+        backup_deduplicated_size,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="systemId != null">
+        system_id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="timeline != null">
+        timeline,
+      </if>
+      <if test="xlogSegmentSize != null">
+        xlog_segment_size,
+      </if>
+      <if test="pgdata != null">
+        pgdata,
+      </if>
+      <if test="configFile != null">
+        config_file,
+      </if>
+      <if test="hbaFile != null">
+        hba_file,
+      </if>
+      <if test="identFile != null">
+        ident_file,
+      </if>
+      <if test="backupPath != null">
+        backup_path,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="error != null">
+        error,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="iscompress != null">
+        isCompress,
+      </if>
+      <if test="includedFiles != null">
+        included_files,
+      </if>
+      <if test="tablespaces != null">
+        tablespaces,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgBackupBaseInfoId != null">
+        #{pgBackupBaseInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="backupId != null">
+        #{backupId,jdbcType=VARCHAR},
+      </if>
+      <if test="backupType != null">
+        #{backupType,jdbcType=TINYINT},
+      </if>
+      <if test="backupLabel != null">
+        #{backupLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="backupName != null">
+        #{backupName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginWal != null">
+        #{beginWal,jdbcType=VARCHAR},
+      </if>
+      <if test="beginOffset != null">
+        #{beginOffset,jdbcType=BIGINT},
+      </if>
+      <if test="beginXlog != null">
+        #{beginXlog,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endWal != null">
+        #{endWal,jdbcType=VARCHAR},
+      </if>
+      <if test="endOffset != null">
+        #{endOffset,jdbcType=BIGINT},
+      </if>
+      <if test="endXlog != null">
+        #{endXlog,jdbcType=VARCHAR},
+      </if>
+      <if test="totalTime != null">
+        #{totalTime,jdbcType=INTEGER},
+      </if>
+      <if test="backupSize != null">
+        #{backupSize,jdbcType=BIGINT},
+      </if>
+      <if test="backupCompressSize != null">
+        #{backupCompressSize,jdbcType=BIGINT},
+      </if>
+      <if test="backupDeduplicatedSize != null">
+        #{backupDeduplicatedSize,jdbcType=BIGINT},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=INTEGER},
+      </if>
+      <if test="systemId != null">
+        #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="timeline != null">
+        #{timeline,jdbcType=VARCHAR},
+      </if>
+      <if test="xlogSegmentSize != null">
+        #{xlogSegmentSize,jdbcType=BIGINT},
+      </if>
+      <if test="pgdata != null">
+        #{pgdata,jdbcType=VARCHAR},
+      </if>
+      <if test="configFile != null">
+        #{configFile,jdbcType=VARCHAR},
+      </if>
+      <if test="hbaFile != null">
+        #{hbaFile,jdbcType=VARCHAR},
+      </if>
+      <if test="identFile != null">
+        #{identFile,jdbcType=VARCHAR},
+      </if>
+      <if test="backupPath != null">
+        #{backupPath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="error != null">
+        #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="iscompress != null">
+        #{iscompress,jdbcType=BIT},
+      </if>
+      <if test="includedFiles != null">
+        #{includedFiles,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tablespaces != null">
+        #{tablespaces,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupBaseInfoWithBLOBs">
+    update telepg_backup_base_info
+    <set>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="backupId != null">
+        backup_id = #{backupId,jdbcType=VARCHAR},
+      </if>
+      <if test="backupType != null">
+        backup_type = #{backupType,jdbcType=TINYINT},
+      </if>
+      <if test="backupLabel != null">
+        backup_label = #{backupLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="backupName != null">
+        backup_name = #{backupName,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginWal != null">
+        begin_wal = #{beginWal,jdbcType=VARCHAR},
+      </if>
+      <if test="beginOffset != null">
+        begin_offset = #{beginOffset,jdbcType=BIGINT},
+      </if>
+      <if test="beginXlog != null">
+        begin_xlog = #{beginXlog,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endWal != null">
+        end_wal = #{endWal,jdbcType=VARCHAR},
+      </if>
+      <if test="endOffset != null">
+        end_offset = #{endOffset,jdbcType=BIGINT},
+      </if>
+      <if test="endXlog != null">
+        end_xlog = #{endXlog,jdbcType=VARCHAR},
+      </if>
+      <if test="totalTime != null">
+        total_time = #{totalTime,jdbcType=INTEGER},
+      </if>
+      <if test="backupSize != null">
+        backup_size = #{backupSize,jdbcType=BIGINT},
+      </if>
+      <if test="backupCompressSize != null">
+        backup_compress_size = #{backupCompressSize,jdbcType=BIGINT},
+      </if>
+      <if test="backupDeduplicatedSize != null">
+        backup_deduplicated_size = #{backupDeduplicatedSize,jdbcType=BIGINT},
+      </if>
+      <if test="process != null">
+        process = #{process,jdbcType=INTEGER},
+      </if>
+      <if test="systemId != null">
+        system_id = #{systemId,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="timeline != null">
+        timeline = #{timeline,jdbcType=VARCHAR},
+      </if>
+      <if test="xlogSegmentSize != null">
+        xlog_segment_size = #{xlogSegmentSize,jdbcType=BIGINT},
+      </if>
+      <if test="pgdata != null">
+        pgdata = #{pgdata,jdbcType=VARCHAR},
+      </if>
+      <if test="configFile != null">
+        config_file = #{configFile,jdbcType=VARCHAR},
+      </if>
+      <if test="hbaFile != null">
+        hba_file = #{hbaFile,jdbcType=VARCHAR},
+      </if>
+      <if test="identFile != null">
+        ident_file = #{identFile,jdbcType=VARCHAR},
+      </if>
+      <if test="backupPath != null">
+        backup_path = #{backupPath,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="error != null">
+        error = #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="iscompress != null">
+        isCompress = #{iscompress,jdbcType=BIT},
+      </if>
+      <if test="includedFiles != null">
+        included_files = #{includedFiles,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tablespaces != null">
+        tablespaces = #{tablespaces,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ctgudal.pgsql.entity.TelepgBackupBaseInfoWithBLOBs">
+    update telepg_backup_base_info
+    set tenant_id = #{tenantId,jdbcType=BIGINT},
+      pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      backup_id = #{backupId,jdbcType=VARCHAR},
+      backup_type = #{backupType,jdbcType=TINYINT},
+      backup_label = #{backupLabel,jdbcType=VARCHAR},
+      backup_name = #{backupName,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      begin_wal = #{beginWal,jdbcType=VARCHAR},
+      begin_offset = #{beginOffset,jdbcType=BIGINT},
+      begin_xlog = #{beginXlog,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      end_wal = #{endWal,jdbcType=VARCHAR},
+      end_offset = #{endOffset,jdbcType=BIGINT},
+      end_xlog = #{endXlog,jdbcType=VARCHAR},
+      total_time = #{totalTime,jdbcType=INTEGER},
+      backup_size = #{backupSize,jdbcType=BIGINT},
+      backup_compress_size = #{backupCompressSize,jdbcType=BIGINT},
+      backup_deduplicated_size = #{backupDeduplicatedSize,jdbcType=BIGINT},
+      process = #{process,jdbcType=INTEGER},
+      system_id = #{systemId,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      timeline = #{timeline,jdbcType=VARCHAR},
+      xlog_segment_size = #{xlogSegmentSize,jdbcType=BIGINT},
+      pgdata = #{pgdata,jdbcType=VARCHAR},
+      config_file = #{configFile,jdbcType=VARCHAR},
+      hba_file = #{hbaFile,jdbcType=VARCHAR},
+      ident_file = #{identFile,jdbcType=VARCHAR},
+      backup_path = #{backupPath,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      error = #{error,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      isCompress = #{iscompress,jdbcType=BIT},
+      included_files = #{includedFiles,jdbcType=LONGVARCHAR},
+      tablespaces = #{tablespaces,jdbcType=LONGVARCHAR}
+    where pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgBackupBaseInfo">
+    update telepg_backup_base_info
+    set tenant_id = #{tenantId,jdbcType=BIGINT},
+      pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      backup_id = #{backupId,jdbcType=VARCHAR},
+      backup_type = #{backupType,jdbcType=TINYINT},
+      backup_label = #{backupLabel,jdbcType=VARCHAR},
+      backup_name = #{backupName,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      begin_wal = #{beginWal,jdbcType=VARCHAR},
+      begin_offset = #{beginOffset,jdbcType=BIGINT},
+      begin_xlog = #{beginXlog,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      end_wal = #{endWal,jdbcType=VARCHAR},
+      end_offset = #{endOffset,jdbcType=BIGINT},
+      end_xlog = #{endXlog,jdbcType=VARCHAR},
+      total_time = #{totalTime,jdbcType=INTEGER},
+      backup_size = #{backupSize,jdbcType=BIGINT},
+      backup_compress_size = #{backupCompressSize,jdbcType=BIGINT},
+      backup_deduplicated_size = #{backupDeduplicatedSize,jdbcType=BIGINT},
+      process = #{process,jdbcType=INTEGER},
+      system_id = #{systemId,jdbcType=VARCHAR},
+      version = #{version,jdbcType=VARCHAR},
+      timeline = #{timeline,jdbcType=VARCHAR},
+      xlog_segment_size = #{xlogSegmentSize,jdbcType=BIGINT},
+      pgdata = #{pgdata,jdbcType=VARCHAR},
+      config_file = #{configFile,jdbcType=VARCHAR},
+      hba_file = #{hbaFile,jdbcType=VARCHAR},
+      ident_file = #{identFile,jdbcType=VARCHAR},
+      backup_path = #{backupPath,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      error = #{error,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      isCompress = #{iscompress,jdbcType=BIT}
+    where pg_backup_base_info_id = #{pgBackupBaseInfoId,jdbcType=BIGINT}
+  </update>
+</mapper>

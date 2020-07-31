@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgGatewayMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgGateway">
+    <id column="pg_gateway_id" jdbcType="BIGINT" property="pgGatewayId" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="pg_host_id" jdbcType="BIGINT" property="pgHostId" />
+    <result column="install_path" jdbcType="VARCHAR" property="installPath" />
+    <result column="write_port" jdbcType="INTEGER" property="writePort" />
+    <result column="read_port" jdbcType="INTEGER" property="readPort" />
+    <result column="service_port" jdbcType="INTEGER" property="servicePort" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+    <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+    <result column="zk_path" jdbcType="VARCHAR" property="zkPath" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_gateway_id, pg_inst_id, pg_host_id, install_path, write_port, read_port, service_port, 
+    version, user_id, tenant_id, create_timestamp, update_timestamp, zk_path, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_gateway
+    where pg_gateway_id = #{pgGatewayId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_gateway
+    where pg_gateway_id = #{pgGatewayId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgGateway">
+    insert into telepg_gateway (pg_gateway_id, pg_inst_id, pg_host_id, 
+      install_path, write_port, read_port, 
+      service_port, version, user_id, 
+      tenant_id, create_timestamp, update_timestamp, 
+      zk_path, remark)
+    values (#{pgGatewayId,jdbcType=BIGINT}, #{pgInstId,jdbcType=VARCHAR}, #{pgHostId,jdbcType=BIGINT}, 
+      #{installPath,jdbcType=VARCHAR}, #{writePort,jdbcType=INTEGER}, #{readPort,jdbcType=INTEGER}, 
+      #{servicePort,jdbcType=INTEGER}, #{version,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{tenantId,jdbcType=BIGINT}, #{createTimestamp,jdbcType=TIMESTAMP}, #{updateTimestamp,jdbcType=TIMESTAMP}, 
+      #{zkPath,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgGateway">
+    insert into telepg_gateway
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgGatewayId != null">
+        pg_gateway_id,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="pgHostId != null">
+        pg_host_id,
+      </if>
+      <if test="installPath != null">
+        install_path,
+      </if>
+      <if test="writePort != null">
+        write_port,
+      </if>
+      <if test="readPort != null">
+        read_port,
+      </if>
+      <if test="servicePort != null">
+        service_port,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp,
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp,
+      </if>
+      <if test="zkPath != null">
+        zk_path,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgGatewayId != null">
+        #{pgGatewayId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="pgHostId != null">
+        #{pgHostId,jdbcType=BIGINT},
+      </if>
+      <if test="installPath != null">
+        #{installPath,jdbcType=VARCHAR},
+      </if>
+      <if test="writePort != null">
+        #{writePort,jdbcType=INTEGER},
+      </if>
+      <if test="readPort != null">
+        #{readPort,jdbcType=INTEGER},
+      </if>
+      <if test="servicePort != null">
+        #{servicePort,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="createTimestamp != null">
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zkPath != null">
+        #{zkPath,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgGateway">
+    update telepg_gateway
+    <set>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="pgHostId != null">
+        pg_host_id = #{pgHostId,jdbcType=BIGINT},
+      </if>
+      <if test="installPath != null">
+        install_path = #{installPath,jdbcType=VARCHAR},
+      </if>
+      <if test="writePort != null">
+        write_port = #{writePort,jdbcType=INTEGER},
+      </if>
+      <if test="readPort != null">
+        read_port = #{readPort,jdbcType=INTEGER},
+      </if>
+      <if test="servicePort != null">
+        service_port = #{servicePort,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zkPath != null">
+        zk_path = #{zkPath,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pg_gateway_id = #{pgGatewayId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgGateway">
+    update telepg_gateway
+    set pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      pg_host_id = #{pgHostId,jdbcType=BIGINT},
+      install_path = #{installPath,jdbcType=VARCHAR},
+      write_port = #{writePort,jdbcType=INTEGER},
+      read_port = #{readPort,jdbcType=INTEGER},
+      service_port = #{servicePort,jdbcType=INTEGER},
+      version = #{version,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      tenant_id = #{tenantId,jdbcType=BIGINT},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      zk_path = #{zkPath,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pg_gateway_id = #{pgGatewayId,jdbcType=BIGINT}
+  </update>
+</mapper>

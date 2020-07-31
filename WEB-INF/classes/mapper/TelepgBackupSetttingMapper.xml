@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgBackupSetttingMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgBackupSettting">
+    <id column="pg_backup_settting_id" jdbcType="BIGINT" property="pgBackupSetttingId" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="enable" jdbcType="BIT" property="enable" />
+    <result column="minimum_redundancy" jdbcType="INTEGER" property="minimumRedundancy" />
+    <result column="auto_wal" jdbcType="BIT" property="autoWal" />
+    <result column="base_retain_day" jdbcType="INTEGER" property="baseRetainDay" />
+    <result column="wal_retain_day" jdbcType="INTEGER" property="walRetainDay" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="day_of_weeks" jdbcType="VARCHAR" property="dayOfWeeks" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_backup_settting_id, pg_inst_id, enable, minimum_redundancy, auto_wal, base_retain_day, 
+    wal_retain_day, start_time, day_of_weeks, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_backup_settting
+    where pg_backup_settting_id = #{pgBackupSetttingId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_backup_settting
+    where pg_backup_settting_id = #{pgBackupSetttingId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgBackupSettting">
+    insert into telepg_backup_settting (pg_backup_settting_id, pg_inst_id, enable, 
+      minimum_redundancy, auto_wal, base_retain_day, 
+      wal_retain_day, start_time, day_of_weeks, 
+      remark)
+    values (#{pgBackupSetttingId,jdbcType=BIGINT}, #{pgInstId,jdbcType=VARCHAR}, #{enable,jdbcType=BIT}, 
+      #{minimumRedundancy,jdbcType=INTEGER}, #{autoWal,jdbcType=BIT}, #{baseRetainDay,jdbcType=INTEGER}, 
+      #{walRetainDay,jdbcType=INTEGER}, #{startTime,jdbcType=VARCHAR}, #{dayOfWeeks,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupSettting">
+    insert into telepg_backup_settting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgBackupSetttingId != null">
+        pg_backup_settting_id,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+      <if test="minimumRedundancy != null">
+        minimum_redundancy,
+      </if>
+      <if test="autoWal != null">
+        auto_wal,
+      </if>
+      <if test="baseRetainDay != null">
+        base_retain_day,
+      </if>
+      <if test="walRetainDay != null">
+        wal_retain_day,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="dayOfWeeks != null">
+        day_of_weeks,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgBackupSetttingId != null">
+        #{pgBackupSetttingId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=BIT},
+      </if>
+      <if test="minimumRedundancy != null">
+        #{minimumRedundancy,jdbcType=INTEGER},
+      </if>
+      <if test="autoWal != null">
+        #{autoWal,jdbcType=BIT},
+      </if>
+      <if test="baseRetainDay != null">
+        #{baseRetainDay,jdbcType=INTEGER},
+      </if>
+      <if test="walRetainDay != null">
+        #{walRetainDay,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dayOfWeeks != null">
+        #{dayOfWeeks,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupSettting">
+    update telepg_backup_settting
+    <set>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=BIT},
+      </if>
+      <if test="minimumRedundancy != null">
+        minimum_redundancy = #{minimumRedundancy,jdbcType=INTEGER},
+      </if>
+      <if test="autoWal != null">
+        auto_wal = #{autoWal,jdbcType=BIT},
+      </if>
+      <if test="baseRetainDay != null">
+        base_retain_day = #{baseRetainDay,jdbcType=INTEGER},
+      </if>
+      <if test="walRetainDay != null">
+        wal_retain_day = #{walRetainDay,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="dayOfWeeks != null">
+        day_of_weeks = #{dayOfWeeks,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pg_backup_settting_id = #{pgBackupSetttingId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgBackupSettting">
+    update telepg_backup_settting
+    set pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      enable = #{enable,jdbcType=BIT},
+      minimum_redundancy = #{minimumRedundancy,jdbcType=INTEGER},
+      auto_wal = #{autoWal,jdbcType=BIT},
+      base_retain_day = #{baseRetainDay,jdbcType=INTEGER},
+      wal_retain_day = #{walRetainDay,jdbcType=INTEGER},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      day_of_weeks = #{dayOfWeeks,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pg_backup_settting_id = #{pgBackupSetttingId,jdbcType=BIGINT}
+  </update>
+</mapper>

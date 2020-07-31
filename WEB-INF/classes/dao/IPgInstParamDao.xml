@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgInstParamDao">
+
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgInstParam">
+        <id column="pg_inst_param_id" jdbcType="BIGINT" property="pgInstParamId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="constrain" jdbcType="TINYINT" property="constrain" />
+        <result column="candidates" jdbcType="VARCHAR" property="candidates" />
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+        <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+        <result column="version" jdbcType="VARCHAR" property="version" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        pg_inst_param_id, name, constrain, candidates, create_timestamp, update_timestamp,
+        version
+    </sql>
+
+    <select id="selectByVersion" resultType="com.ctgudal.pgsql.entity.TelepgInstParam">
+        select name , constrain , candidates
+        from telepg_inst_param
+        where version = #{version,jdbcType=VARCHAR}
+        <if test="name != null">
+            and name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgInstDao">
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgInst">
+        <id column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+        <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+        <result column="inst_name" jdbcType="VARCHAR" property="instName" />
+        <result column="inst_storage" jdbcType="VARCHAR" property="instStorage" />
+        <result column="inst_ipv4" jdbcType="VARCHAR" property="instIpv4" />
+        <result column="inst_ipv6" jdbcType="VARCHAR" property="instIpv6" />
+        <result column="inst_port" jdbcType="INTEGER" property="instPort" />
+        <result column="network_info" jdbcType="VARCHAR" property="networkInfo" />
+        <result column="subnet_info" jdbcType="VARCHAR" property="subnetInfo" />
+        <result column="security_info" jdbcType="VARCHAR" property="securityInfo" />
+        <result column="inst_version" jdbcType="VARCHAR" property="instVersion" />
+        <result column="inst_user" jdbcType="VARCHAR" property="instUser" />
+        <result column="eff_timestamp" jdbcType="TIMESTAMP" property="effTimestamp" />
+        <result column="expire_timestamp" jdbcType="TIMESTAMP" property="expireTimestamp" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="status_cd" jdbcType="VARCHAR" property="statusCd" />
+        <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="virtual_router_id" jdbcType="VARCHAR" property="virtualRouterId" />
+        <result column="zk_path" jdbcType="VARCHAR" property="zkPath" />
+        <result column="vip" jdbcType="VARCHAR" property="vip" />
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+        <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+        <result column="inst_type" jdbcType="TINYINT" property="instType" />
+        <result column="inst_type_desc" jdbcType="VARCHAR" property="instTypeDesc" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        pg_inst_id, sku_code, inst_name, inst_storage, inst_ipv4, inst_ipv6, inst_port, network_info,
+        subnet_info, security_info, inst_version, inst_user, eff_timestamp, expire_timestamp,
+        status, status_cd, tenant_id, user_id, virtual_router_id, zk_path, vip, create_timestamp,
+        update_timestamp, inst_type, inst_type_desc, remark
+    </sql>
+
+    <select id="selectAllByPgTenantId" resultType="com.ctgudal.pgsql.entity.TelepgInst" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        <if test="pgInstId != null">
+            and pg_inst_id  = #{pgInstId,jdbcType=VARCHAR}
+        </if>
+        <if test="instName != null">
+            and inst_name like concat('%',#{instName,jdbcType=VARCHAR},'%')
+        </if>
+        limit #{offset,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAllNamesByPgTenantId" resultType="com.ctgudal.pgsql.entity.TelepgInst" resultMap="BaseResultMap">
+        select pg_inst_id , inst_name
+        from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        <if test="pgInstId != null">
+            and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        </if>
+        <if test="instName != null">
+            and inst_name like concat('%',#{instName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="statusCd != null">
+            and status_cd = #{statusCd,jdbcType=VARCHAR}
+        </if>
+        limit #{offset,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByPgTenantId" resultType="com.ctgudal.pgsql.entity.TelepgInst" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        <if test="pgInstId != null">
+            and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        </if>
+        <if test="instName != null">
+            and inst_name like concat('%',#{instName,jdbcType=VARCHAR},'%')
+        </if>
+        and status_cd != "9999"
+        limit #{offset,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByPgPrimaryKeyWithTenantId" resultType="com.ctgudal.pgsql.entity.TelepgInst">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and status_cd != "9999"
+    </select>
+
+    <select id="selectByZkPathWithTenantId" resultType="com.ctgudal.pgsql.entity.TelepgInst">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and zk_path = #{zkPath,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByStatusCd" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_inst
+        where status_cd != "9999"
+        <if test="statusCd != null">
+            and status_cd = #{statusCd,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <update id="updateInstNameByPgPrimaryKeyWithTenantId">
+        update telepg_inst
+        set inst_name = #{instName,jdbcType=VARCHAR},
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP}
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and status_cd != "9999"
+    </update>
+
+    <update id="updateStatusCdByPgInstIdWithTenantId">
+        update telepg_inst
+        set status_cd = #{statusCd,jdbcType=VARCHAR},
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP}
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        <if test="preStatusCd != null">
+            and status_cd = #{preStatusCd,jdbcType=VARCHAR}
+        </if>
+        and status_cd != "9999"
+    </update>
+
+    <update id="updateInstPgPort">
+        update telepg_inst
+        set inst_port = #{newInstPort,jdbcType=VARCHAR},
+        <if test="updateTimestamp != null">
+            update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP}
+        </if>
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        and inst_port = #{instPort,jdbcType=VARCHAR}
+    </update>
+
+    <select id="countWithTenantId" resultType="java.lang.Integer">
+        select count(1)
+        from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        <if test="pgInstId != null">
+            and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+        </if>
+        <if test="instName != null">
+            and inst_name like concat('%',#{instName,jdbcType=VARCHAR},'%')
+        </if>
+--         and status_cd != "9999"
+    </select>
+
+    <select id="selectInstStatusCd" resultType="java.lang.String">
+        select status_cd from telepg_inst
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="existPrimaryKey" parameterType="java.lang.String" resultType="java.lang.String">
+        select pg_inst_id
+        from telepg_inst
+        where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+    </select>
+</mapper>

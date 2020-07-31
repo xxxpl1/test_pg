@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Implementation-Title: ctgudal-pgsql-mgr
+Implementation-Version: 2.7.6
+Archiver-Version: Plexus Archiver
+Built-By: crm
+Implementation-Vendor-Id: com.ctgudal.pgsql
+Spring-Boot-Version: 2.2.1.RELEASE
+Main-Class: org.springframework.boot.loader.WarLauncher
+Start-Class: com.ctgudal.pgsql.Application
+Spring-Boot-Classes: WEB-INF/classes/
+Spring-Boot-Lib: WEB-INF/lib/
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_151
+Implementation-URL: http://maven.apache.org
+

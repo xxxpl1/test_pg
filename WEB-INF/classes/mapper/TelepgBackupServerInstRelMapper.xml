@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgBackupServerInstRelMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+    <id column="rel_id" jdbcType="BIGINT" property="relId" />
+    <result column="pg_backup_server_id" jdbcType="BIGINT" property="pgBackupServerId" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rel_id, pg_backup_server_id, pg_inst_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_backup_server_inst_rel
+    where rel_id = #{relId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_backup_server_inst_rel
+    where rel_id = #{relId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+    insert into telepg_backup_server_inst_rel (rel_id, pg_backup_server_id, pg_inst_id
+      )
+    values (#{relId,jdbcType=BIGINT}, #{pgBackupServerId,jdbcType=BIGINT}, #{pgInstId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+    insert into telepg_backup_server_inst_rel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="relId != null">
+        rel_id,
+      </if>
+      <if test="pgBackupServerId != null">
+        pg_backup_server_id,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="relId != null">
+        #{relId,jdbcType=BIGINT},
+      </if>
+      <if test="pgBackupServerId != null">
+        #{pgBackupServerId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+    update telepg_backup_server_inst_rel
+    <set>
+      <if test="pgBackupServerId != null">
+        pg_backup_server_id = #{pgBackupServerId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rel_id = #{relId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgBackupServerInstRel">
+    update telepg_backup_server_inst_rel
+    set pg_backup_server_id = #{pgBackupServerId,jdbcType=BIGINT},
+      pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+    where rel_id = #{relId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgGatewayDao">
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgGateway">
+        <id column="pg_gateway_id" jdbcType="BIGINT" property="pgGatewayId" />
+        <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+        <result column="pg_host_id" jdbcType="BIGINT" property="pgHostId" />
+        <result column="install_path" jdbcType="VARCHAR" property="installPath" />
+        <result column="write_port" jdbcType="INTEGER" property="writePort" />
+        <result column="read_port" jdbcType="INTEGER" property="readPort" />
+        <result column="service_port" jdbcType="INTEGER" property="servicePort" />
+        <result column="version" jdbcType="VARCHAR" property="version" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+        <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+        <result column="zk_path" jdbcType="VARCHAR" property="zkPath" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        pg_gateway_id, pg_inst_id, pg_host_id, install_path, write_port, read_port, service_port,
+        version, user_id, tenant_id, create_timestamp, update_timestamp, zk_path, remark
+    </sql>
+
+    <select id="selectByTenantIdAndInstId" resultType="com.ctgudal.pgsql.entity.TelepgGateway">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_gateway
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="countWithTenantIdAndHostId" resultType="java.lang.Integer">
+        select count(1)
+        from telepg_gateway
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and pg_host_id = #{pgHostId,jdbcType=BIGINT}
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: prod
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  messages:
+    basename: i18n/adminbase-messages
+    encoding: UTF-8
+
+  thymeleaf:
+    prefix: classpath:/templates/,classpath:/static/
+    cache: false
+
+# mybatis分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  rowBoundsWithCount: true
+  offsetAsPageNum: true
+
+# MybatisPlus 配置
+mybatis-plus:
+  mapper-locations:
+    - classpath*:mapper/*.xml
+    - classpath*:dao/*.xml
+  global-config:
+    db-config:
+      logic-delete-value: 2
+      logic-not-delete-value: 1
+
+order:
+  enabled: true # 是否开启PaaS施工单处理功能。默认false。it推广环境需要开通
+
+adminbase:
+  # paas模式为对接paas模式
+  # local模式为独立部署模式
+  # none或者不填情况下，默认两种模式都不生效
+  deploy-type: paas
+  config:
+    componentName: TelePG
+
+versionNo:
+  admin: 2.7.6
+  gateway: 2.7.6
+  pg: 12.3
+
+logging:
+  config: classpath:logback.xml

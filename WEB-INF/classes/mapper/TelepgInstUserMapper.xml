@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgInstUserMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgInstUser">
+    <id column="pg_inst_user_id" jdbcType="BIGINT" property="pgInstUserId" />
+    <result column="pg_user_name" jdbcType="VARCHAR" property="pgUserName" />
+    <result column="pg_user_pw" jdbcType="VARCHAR" property="pgUserPw" />
+    <result column="pg_user_type" jdbcType="VARCHAR" property="pgUserType" />
+    <result column="is_admin" jdbcType="BIT" property="isAdmin" />
+    <result column="is_show" jdbcType="BIT" property="isShow" />
+    <result column="pg_user_state" jdbcType="VARCHAR" property="pgUserState" />
+    <result column="pg_user_create_timestamp" jdbcType="TIMESTAMP" property="pgUserCreateTimestamp" />
+    <result column="pg_user_update_timestamp" jdbcType="TIMESTAMP" property="pgUserUpdateTimestamp" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_inst_user_id, pg_user_name, pg_user_pw, pg_user_type, is_admin, is_show, pg_user_state, 
+    pg_user_create_timestamp, pg_user_update_timestamp, pg_inst_id, tenant_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_inst_user
+    where pg_inst_user_id = #{pgInstUserId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_inst_user
+    where pg_inst_user_id = #{pgInstUserId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgInstUser">
+    insert into telepg_inst_user (pg_inst_user_id, pg_user_name, pg_user_pw, 
+      pg_user_type, is_admin, is_show, 
+      pg_user_state, pg_user_create_timestamp, pg_user_update_timestamp, 
+      pg_inst_id, tenant_id)
+    values (#{pgInstUserId,jdbcType=BIGINT}, #{pgUserName,jdbcType=VARCHAR}, #{pgUserPw,jdbcType=VARCHAR}, 
+      #{pgUserType,jdbcType=VARCHAR}, #{isAdmin,jdbcType=BIT}, #{isShow,jdbcType=BIT}, 
+      #{pgUserState,jdbcType=VARCHAR}, #{pgUserCreateTimestamp,jdbcType=TIMESTAMP}, #{pgUserUpdateTimestamp,jdbcType=TIMESTAMP}, 
+      #{pgInstId,jdbcType=VARCHAR}, #{tenantId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgInstUser">
+    insert into telepg_inst_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgInstUserId != null">
+        pg_inst_user_id,
+      </if>
+      <if test="pgUserName != null">
+        pg_user_name,
+      </if>
+      <if test="pgUserPw != null">
+        pg_user_pw,
+      </if>
+      <if test="pgUserType != null">
+        pg_user_type,
+      </if>
+      <if test="isAdmin != null">
+        is_admin,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="pgUserState != null">
+        pg_user_state,
+      </if>
+      <if test="pgUserCreateTimestamp != null">
+        pg_user_create_timestamp,
+      </if>
+      <if test="pgUserUpdateTimestamp != null">
+        pg_user_update_timestamp,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgInstUserId != null">
+        #{pgInstUserId,jdbcType=BIGINT},
+      </if>
+      <if test="pgUserName != null">
+        #{pgUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="pgUserPw != null">
+        #{pgUserPw,jdbcType=VARCHAR},
+      </if>
+      <if test="pgUserType != null">
+        #{pgUserType,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null">
+        #{isAdmin,jdbcType=BIT},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=BIT},
+      </if>
+      <if test="pgUserState != null">
+        #{pgUserState,jdbcType=VARCHAR},
+      </if>
+      <if test="pgUserCreateTimestamp != null">
+        #{pgUserCreateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pgUserUpdateTimestamp != null">
+        #{pgUserUpdateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgInstUser">
+    update telepg_inst_user
+    <set>
+      <if test="pgUserName != null">
+        pg_user_name = #{pgUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="pgUserPw != null">
+        pg_user_pw = #{pgUserPw,jdbcType=VARCHAR},
+      </if>
+      <if test="pgUserType != null">
+        pg_user_type = #{pgUserType,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null">
+        is_admin = #{isAdmin,jdbcType=BIT},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=BIT},
+      </if>
+      <if test="pgUserState != null">
+        pg_user_state = #{pgUserState,jdbcType=VARCHAR},
+      </if>
+      <if test="pgUserCreateTimestamp != null">
+        pg_user_create_timestamp = #{pgUserCreateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pgUserUpdateTimestamp != null">
+        pg_user_update_timestamp = #{pgUserUpdateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pg_inst_user_id = #{pgInstUserId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgInstUser">
+    update telepg_inst_user
+    set pg_user_name = #{pgUserName,jdbcType=VARCHAR},
+      pg_user_pw = #{pgUserPw,jdbcType=VARCHAR},
+      pg_user_type = #{pgUserType,jdbcType=VARCHAR},
+      is_admin = #{isAdmin,jdbcType=BIT},
+      is_show = #{isShow,jdbcType=BIT},
+      pg_user_state = #{pgUserState,jdbcType=VARCHAR},
+      pg_user_create_timestamp = #{pgUserCreateTimestamp,jdbcType=TIMESTAMP},
+      pg_user_update_timestamp = #{pgUserUpdateTimestamp,jdbcType=TIMESTAMP},
+      pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=BIGINT}
+    where pg_inst_user_id = #{pgInstUserId,jdbcType=BIGINT}
+  </update>
+</mapper>

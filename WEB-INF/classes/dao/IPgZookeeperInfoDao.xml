@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgZookeeperInfoDao">
+
+    <select id="findOne" resultType="com.ctgudal.pgsql.entity.TelepgZookeeperInfo">
+    SELECT
+      t.*
+    FROM
+      telepg_zookeeper_info t
+    limit 1
+  </select>
+
+</mapper>

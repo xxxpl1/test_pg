@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgSpecMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgSpec">
+    <id column="pg_spec_id" jdbcType="BIGINT" property="pgSpecId" />
+    <result column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="spec_name" jdbcType="VARCHAR" property="specName" />
+    <result column="spec_cpu" jdbcType="INTEGER" property="specCpu" />
+    <result column="spec_memory" jdbcType="INTEGER" property="specMemory" />
+    <result column="spec_server_num" jdbcType="INTEGER" property="specServerNum" />
+    <result column="hard_disk_size" jdbcType="VARCHAR" property="hardDiskSize" />
+    <result column="status_cd" jdbcType="VARCHAR" property="statusCd" />
+    <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+    <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_spec_id, pg_inst_id, spec_name, spec_cpu, spec_memory, spec_server_num, hard_disk_size, 
+    status_cd, create_timestamp, update_timestamp, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_spec
+    where pg_spec_id = #{pgSpecId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from telepg_spec
+    where pg_spec_id = #{pgSpecId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgSpec">
+    insert into telepg_spec (pg_spec_id, pg_inst_id, spec_name, 
+      spec_cpu, spec_memory, spec_server_num, 
+      hard_disk_size, status_cd, create_timestamp, 
+      update_timestamp, remark)
+    values (#{pgSpecId,jdbcType=BIGINT}, #{pgInstId,jdbcType=VARCHAR}, #{specName,jdbcType=VARCHAR}, 
+      #{specCpu,jdbcType=INTEGER}, #{specMemory,jdbcType=INTEGER}, #{specServerNum,jdbcType=INTEGER}, 
+      #{hardDiskSize,jdbcType=VARCHAR}, #{statusCd,jdbcType=VARCHAR}, #{createTimestamp,jdbcType=TIMESTAMP}, 
+      #{updateTimestamp,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgSpec">
+    insert into telepg_spec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgSpecId != null">
+        pg_spec_id,
+      </if>
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="specName != null">
+        spec_name,
+      </if>
+      <if test="specCpu != null">
+        spec_cpu,
+      </if>
+      <if test="specMemory != null">
+        spec_memory,
+      </if>
+      <if test="specServerNum != null">
+        spec_server_num,
+      </if>
+      <if test="hardDiskSize != null">
+        hard_disk_size,
+      </if>
+      <if test="statusCd != null">
+        status_cd,
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp,
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgSpecId != null">
+        #{pgSpecId,jdbcType=BIGINT},
+      </if>
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="specName != null">
+        #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="specCpu != null">
+        #{specCpu,jdbcType=INTEGER},
+      </if>
+      <if test="specMemory != null">
+        #{specMemory,jdbcType=INTEGER},
+      </if>
+      <if test="specServerNum != null">
+        #{specServerNum,jdbcType=INTEGER},
+      </if>
+      <if test="hardDiskSize != null">
+        #{hardDiskSize,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCd != null">
+        #{statusCd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgSpec">
+    update telepg_spec
+    <set>
+      <if test="pgInstId != null">
+        pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="specName != null">
+        spec_name = #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="specCpu != null">
+        spec_cpu = #{specCpu,jdbcType=INTEGER},
+      </if>
+      <if test="specMemory != null">
+        spec_memory = #{specMemory,jdbcType=INTEGER},
+      </if>
+      <if test="specServerNum != null">
+        spec_server_num = #{specServerNum,jdbcType=INTEGER},
+      </if>
+      <if test="hardDiskSize != null">
+        hard_disk_size = #{hardDiskSize,jdbcType=VARCHAR},
+      </if>
+      <if test="statusCd != null">
+        status_cd = #{statusCd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pg_spec_id = #{pgSpecId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgSpec">
+    update telepg_spec
+    set pg_inst_id = #{pgInstId,jdbcType=VARCHAR},
+      spec_name = #{specName,jdbcType=VARCHAR},
+      spec_cpu = #{specCpu,jdbcType=INTEGER},
+      spec_memory = #{specMemory,jdbcType=INTEGER},
+      spec_server_num = #{specServerNum,jdbcType=INTEGER},
+      hard_disk_size = #{hardDiskSize,jdbcType=VARCHAR},
+      status_cd = #{statusCd,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pg_spec_id = #{pgSpecId,jdbcType=BIGINT}
+  </update>
+</mapper>

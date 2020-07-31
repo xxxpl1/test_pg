@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgVersionInfoMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgVersionInfo">
+    <id column="version_id" jdbcType="INTEGER" property="versionId" />
+    <result column="current_version" jdbcType="VARCHAR" property="currentVersion" />
+    <result column="last_version" jdbcType="VARCHAR" property="lastVersion" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    version_id, current_version, last_version, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_version_info
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from telepg_version_info
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgVersionInfo">
+    insert into telepg_version_info (version_id, current_version, last_version, 
+      create_time)
+    values (#{versionId,jdbcType=INTEGER}, #{currentVersion,jdbcType=VARCHAR}, #{lastVersion,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgVersionInfo">
+    insert into telepg_version_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="versionId != null">
+        version_id,
+      </if>
+      <if test="currentVersion != null">
+        current_version,
+      </if>
+      <if test="lastVersion != null">
+        last_version,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="versionId != null">
+        #{versionId,jdbcType=INTEGER},
+      </if>
+      <if test="currentVersion != null">
+        #{currentVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="lastVersion != null">
+        #{lastVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgVersionInfo">
+    update telepg_version_info
+    <set>
+      <if test="currentVersion != null">
+        current_version = #{currentVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="lastVersion != null">
+        last_version = #{lastVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgVersionInfo">
+    update telepg_version_info
+    set current_version = #{currentVersion,jdbcType=VARCHAR},
+      last_version = #{lastVersion,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where version_id = #{versionId,jdbcType=INTEGER}
+  </update>
+</mapper>

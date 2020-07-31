@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.dao.db.IPgHostDao">
+    <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgHost">
+        <id column="pg_host_id" jdbcType="BIGINT" property="pgHostId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="mgr_ipv4" jdbcType="VARCHAR" property="mgrIpv4" />
+        <result column="mgr_ipv6" jdbcType="VARCHAR" property="mgrIpv6" />
+        <result column="vpc_ipv4" jdbcType="VARCHAR" property="vpcIpv4" />
+        <result column="vpc_ipv6" jdbcType="VARCHAR" property="vpcIpv6" />
+        <result column="ssh_user" jdbcType="VARCHAR" property="sshUser" />
+        <result column="ssh_pwd" jdbcType="VARCHAR" property="sshPwd" />
+        <result column="ssh_port" jdbcType="INTEGER" property="sshPort" />
+        <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+        <result column="cpu" jdbcType="INTEGER" property="cpu" />
+        <result column="memory" jdbcType="INTEGER" property="memory" />
+        <result column="disk_space" jdbcType="INTEGER" property="diskSpace" />
+        <result column="status_cd" jdbcType="VARCHAR" property="statusCd" />
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+        <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+        <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="type" jdbcType="TINYINT" property="type" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        pg_host_id, name, mgr_ipv4, mgr_ipv6, vpc_ipv4, vpc_ipv6, ssh_user, ssh_pwd, ssh_port,
+        image_id, cpu, memory, disk_space, status_cd, user_id, tenant_id, create_timestamp,
+        update_timestamp, remark, type
+    </sql>
+
+    <select id="selectByTenantId" resultType="com.ctgudal.pgsql.entity.TelepgHost" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from telepg_host
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        and status_cd != "9999"
+    </select>
+
+    <insert id="insertSelectiveAutoIncrement" parameterType="com.ctgudal.pgsql.entity.TelepgHost" useGeneratedKeys="true"
+            keyProperty="pgHostId">
+        insert into telepg_host
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pgHostId != null">
+                pg_host_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="mgrIpv4 != null">
+                mgr_ipv4,
+            </if>
+            <if test="mgrIpv6 != null">
+                mgr_ipv6,
+            </if>
+            <if test="vpcIpv4 != null">
+                vpc_ipv4,
+            </if>
+            <if test="vpcIpv6 != null">
+                vpc_ipv6,
+            </if>
+            <if test="sshUser != null">
+                ssh_user,
+            </if>
+            <if test="sshPwd != null">
+                ssh_pwd,
+            </if>
+            <if test="sshPort != null">
+                ssh_port,
+            </if>
+            <if test="imageId != null">
+                image_id,
+            </if>
+            <if test="cpu != null">
+                cpu,
+            </if>
+            <if test="memory != null">
+                memory,
+            </if>
+            <if test="diskSpace != null">
+                disk_space,
+            </if>
+            <if test="statusCd != null">
+                status_cd,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="tenantId != null">
+                tenant_id,
+            </if>
+            <if test="createTimestamp != null">
+                create_timestamp,
+            </if>
+            <if test="updateTimestamp != null">
+                update_timestamp,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pgHostId != null">
+                #{pgHostId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mgrIpv4 != null">
+                #{mgrIpv4,jdbcType=VARCHAR},
+            </if>
+            <if test="mgrIpv6 != null">
+                #{mgrIpv6,jdbcType=VARCHAR},
+            </if>
+            <if test="vpcIpv4 != null">
+                #{vpcIpv4,jdbcType=VARCHAR},
+            </if>
+            <if test="vpcIpv6 != null">
+                #{vpcIpv6,jdbcType=VARCHAR},
+            </if>
+            <if test="sshUser != null">
+                #{sshUser,jdbcType=VARCHAR},
+            </if>
+            <if test="sshPwd != null">
+                #{sshPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="sshPort != null">
+                #{sshPort,jdbcType=INTEGER},
+            </if>
+            <if test="imageId != null">
+                #{imageId,jdbcType=VARCHAR},
+            </if>
+            <if test="cpu != null">
+                #{cpu,jdbcType=INTEGER},
+            </if>
+            <if test="memory != null">
+                #{memory,jdbcType=INTEGER},
+            </if>
+            <if test="diskSpace != null">
+                #{diskSpace,jdbcType=INTEGER},
+            </if>
+            <if test="statusCd != null">
+                #{statusCd,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="tenantId != null">
+                #{tenantId,jdbcType=BIGINT},
+            </if>
+            <if test="createTimestamp != null">
+                #{createTimestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTimestamp != null">
+                #{updateTimestamp,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countWithTenantId" resultType="java.lang.Integer">
+        select count(1)
+        from telepg_host
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        <if test="name != null">
+            and name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="type != null">
+            and type = #{type,jdbcType=TINYINT}
+        </if>
+    </select>
+
+    <select id="selectAllByPgTenantId" resultType="com.ctgudal.pgsql.entity.TelepgHost" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from telepg_host
+        where tenant_id = #{tenantId,jdbcType=BIGINT}
+        <if test="name != null">
+            and name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="type != null">
+            and type = #{type,jdbcType=TINYINT}
+        </if>
+        limit #{offset,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+</mapper>

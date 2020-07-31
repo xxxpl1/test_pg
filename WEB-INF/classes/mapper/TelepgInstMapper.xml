@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctgudal.pgsql.mapper.TelepgInstMapper">
+  <resultMap id="BaseResultMap" type="com.ctgudal.pgsql.entity.TelepgInst">
+    <id column="pg_inst_id" jdbcType="VARCHAR" property="pgInstId" />
+    <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+    <result column="inst_name" jdbcType="VARCHAR" property="instName" />
+    <result column="inst_storage" jdbcType="VARCHAR" property="instStorage" />
+    <result column="inst_ipv4" jdbcType="VARCHAR" property="instIpv4" />
+    <result column="inst_ipv6" jdbcType="VARCHAR" property="instIpv6" />
+    <result column="inst_port" jdbcType="INTEGER" property="instPort" />
+    <result column="network_info" jdbcType="VARCHAR" property="networkInfo" />
+    <result column="subnet_info" jdbcType="VARCHAR" property="subnetInfo" />
+    <result column="security_info" jdbcType="VARCHAR" property="securityInfo" />
+    <result column="inst_version" jdbcType="VARCHAR" property="instVersion" />
+    <result column="inst_user" jdbcType="VARCHAR" property="instUser" />
+    <result column="eff_timestamp" jdbcType="TIMESTAMP" property="effTimestamp" />
+    <result column="expire_timestamp" jdbcType="TIMESTAMP" property="expireTimestamp" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="status_cd" jdbcType="VARCHAR" property="statusCd" />
+    <result column="tenant_id" jdbcType="BIGINT" property="tenantId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="virtual_router_id" jdbcType="VARCHAR" property="virtualRouterId" />
+    <result column="zk_path" jdbcType="VARCHAR" property="zkPath" />
+    <result column="vip" jdbcType="VARCHAR" property="vip" />
+    <result column="create_timestamp" jdbcType="TIMESTAMP" property="createTimestamp" />
+    <result column="update_timestamp" jdbcType="TIMESTAMP" property="updateTimestamp" />
+    <result column="inst_type" jdbcType="TINYINT" property="instType" />
+    <result column="inst_type_desc" jdbcType="VARCHAR" property="instTypeDesc" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pg_inst_id, sku_code, inst_name, inst_storage, inst_ipv4, inst_ipv6, inst_port, network_info, 
+    subnet_info, security_info, inst_version, inst_user, eff_timestamp, expire_timestamp, 
+    status, status_cd, tenant_id, user_id, virtual_router_id, zk_path, vip, create_timestamp, 
+    update_timestamp, inst_type, inst_type_desc, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from telepg_inst
+    where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from telepg_inst
+    where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ctgudal.pgsql.entity.TelepgInst">
+    insert into telepg_inst (pg_inst_id, sku_code, inst_name, 
+      inst_storage, inst_ipv4, inst_ipv6, 
+      inst_port, network_info, subnet_info, 
+      security_info, inst_version, inst_user, 
+      eff_timestamp, expire_timestamp, status, 
+      status_cd, tenant_id, user_id, 
+      virtual_router_id, zk_path, vip, 
+      create_timestamp, update_timestamp, inst_type, 
+      inst_type_desc, remark)
+    values (#{pgInstId,jdbcType=VARCHAR}, #{skuCode,jdbcType=VARCHAR}, #{instName,jdbcType=VARCHAR}, 
+      #{instStorage,jdbcType=VARCHAR}, #{instIpv4,jdbcType=VARCHAR}, #{instIpv6,jdbcType=VARCHAR}, 
+      #{instPort,jdbcType=INTEGER}, #{networkInfo,jdbcType=VARCHAR}, #{subnetInfo,jdbcType=VARCHAR}, 
+      #{securityInfo,jdbcType=VARCHAR}, #{instVersion,jdbcType=VARCHAR}, #{instUser,jdbcType=VARCHAR}, 
+      #{effTimestamp,jdbcType=TIMESTAMP}, #{expireTimestamp,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, 
+      #{statusCd,jdbcType=VARCHAR}, #{tenantId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{virtualRouterId,jdbcType=VARCHAR}, #{zkPath,jdbcType=VARCHAR}, #{vip,jdbcType=VARCHAR}, 
+      #{createTimestamp,jdbcType=TIMESTAMP}, #{updateTimestamp,jdbcType=TIMESTAMP}, #{instType,jdbcType=TINYINT}, 
+      #{instTypeDesc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ctgudal.pgsql.entity.TelepgInst">
+    insert into telepg_inst
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pgInstId != null">
+        pg_inst_id,
+      </if>
+      <if test="skuCode != null">
+        sku_code,
+      </if>
+      <if test="instName != null">
+        inst_name,
+      </if>
+      <if test="instStorage != null">
+        inst_storage,
+      </if>
+      <if test="instIpv4 != null">
+        inst_ipv4,
+      </if>
+      <if test="instIpv6 != null">
+        inst_ipv6,
+      </if>
+      <if test="instPort != null">
+        inst_port,
+      </if>
+      <if test="networkInfo != null">
+        network_info,
+      </if>
+      <if test="subnetInfo != null">
+        subnet_info,
+      </if>
+      <if test="securityInfo != null">
+        security_info,
+      </if>
+      <if test="instVersion != null">
+        inst_version,
+      </if>
+      <if test="instUser != null">
+        inst_user,
+      </if>
+      <if test="effTimestamp != null">
+        eff_timestamp,
+      </if>
+      <if test="expireTimestamp != null">
+        expire_timestamp,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="statusCd != null">
+        status_cd,
+      </if>
+      <if test="tenantId != null">
+        tenant_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="virtualRouterId != null">
+        virtual_router_id,
+      </if>
+      <if test="zkPath != null">
+        zk_path,
+      </if>
+      <if test="vip != null">
+        vip,
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp,
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp,
+      </if>
+      <if test="instType != null">
+        inst_type,
+      </if>
+      <if test="instTypeDesc != null">
+        inst_type_desc,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pgInstId != null">
+        #{pgInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuCode != null">
+        #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="instName != null">
+        #{instName,jdbcType=VARCHAR},
+      </if>
+      <if test="instStorage != null">
+        #{instStorage,jdbcType=VARCHAR},
+      </if>
+      <if test="instIpv4 != null">
+        #{instIpv4,jdbcType=VARCHAR},
+      </if>
+      <if test="instIpv6 != null">
+        #{instIpv6,jdbcType=VARCHAR},
+      </if>
+      <if test="instPort != null">
+        #{instPort,jdbcType=INTEGER},
+      </if>
+      <if test="networkInfo != null">
+        #{networkInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetInfo != null">
+        #{subnetInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="securityInfo != null">
+        #{securityInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instVersion != null">
+        #{instVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="instUser != null">
+        #{instUser,jdbcType=VARCHAR},
+      </if>
+      <if test="effTimestamp != null">
+        #{effTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTimestamp != null">
+        #{expireTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="statusCd != null">
+        #{statusCd,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="virtualRouterId != null">
+        #{virtualRouterId,jdbcType=VARCHAR},
+      </if>
+      <if test="zkPath != null">
+        #{zkPath,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null">
+        #{vip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="instType != null">
+        #{instType,jdbcType=TINYINT},
+      </if>
+      <if test="instTypeDesc != null">
+        #{instTypeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ctgudal.pgsql.entity.TelepgInst">
+    update telepg_inst
+    <set>
+      <if test="skuCode != null">
+        sku_code = #{skuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="instName != null">
+        inst_name = #{instName,jdbcType=VARCHAR},
+      </if>
+      <if test="instStorage != null">
+        inst_storage = #{instStorage,jdbcType=VARCHAR},
+      </if>
+      <if test="instIpv4 != null">
+        inst_ipv4 = #{instIpv4,jdbcType=VARCHAR},
+      </if>
+      <if test="instIpv6 != null">
+        inst_ipv6 = #{instIpv6,jdbcType=VARCHAR},
+      </if>
+      <if test="instPort != null">
+        inst_port = #{instPort,jdbcType=INTEGER},
+      </if>
+      <if test="networkInfo != null">
+        network_info = #{networkInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="subnetInfo != null">
+        subnet_info = #{subnetInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="securityInfo != null">
+        security_info = #{securityInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="instVersion != null">
+        inst_version = #{instVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="instUser != null">
+        inst_user = #{instUser,jdbcType=VARCHAR},
+      </if>
+      <if test="effTimestamp != null">
+        eff_timestamp = #{effTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expireTimestamp != null">
+        expire_timestamp = #{expireTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="statusCd != null">
+        status_cd = #{statusCd,jdbcType=VARCHAR},
+      </if>
+      <if test="tenantId != null">
+        tenant_id = #{tenantId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="virtualRouterId != null">
+        virtual_router_id = #{virtualRouterId,jdbcType=VARCHAR},
+      </if>
+      <if test="zkPath != null">
+        zk_path = #{zkPath,jdbcType=VARCHAR},
+      </if>
+      <if test="vip != null">
+        vip = #{vip,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimestamp != null">
+        create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimestamp != null">
+        update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="instType != null">
+        inst_type = #{instType,jdbcType=TINYINT},
+      </if>
+      <if test="instTypeDesc != null">
+        inst_type_desc = #{instTypeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ctgudal.pgsql.entity.TelepgInst">
+    update telepg_inst
+    set sku_code = #{skuCode,jdbcType=VARCHAR},
+      inst_name = #{instName,jdbcType=VARCHAR},
+      inst_storage = #{instStorage,jdbcType=VARCHAR},
+      inst_ipv4 = #{instIpv4,jdbcType=VARCHAR},
+      inst_ipv6 = #{instIpv6,jdbcType=VARCHAR},
+      inst_port = #{instPort,jdbcType=INTEGER},
+      network_info = #{networkInfo,jdbcType=VARCHAR},
+      subnet_info = #{subnetInfo,jdbcType=VARCHAR},
+      security_info = #{securityInfo,jdbcType=VARCHAR},
+      inst_version = #{instVersion,jdbcType=VARCHAR},
+      inst_user = #{instUser,jdbcType=VARCHAR},
+      eff_timestamp = #{effTimestamp,jdbcType=TIMESTAMP},
+      expire_timestamp = #{expireTimestamp,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      status_cd = #{statusCd,jdbcType=VARCHAR},
+      tenant_id = #{tenantId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      virtual_router_id = #{virtualRouterId,jdbcType=VARCHAR},
+      zk_path = #{zkPath,jdbcType=VARCHAR},
+      vip = #{vip,jdbcType=VARCHAR},
+      create_timestamp = #{createTimestamp,jdbcType=TIMESTAMP},
+      update_timestamp = #{updateTimestamp,jdbcType=TIMESTAMP},
+      inst_type = #{instType,jdbcType=TINYINT},
+      inst_type_desc = #{instTypeDesc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where pg_inst_id = #{pgInstId,jdbcType=VARCHAR}
+  </update>
+</mapper>
