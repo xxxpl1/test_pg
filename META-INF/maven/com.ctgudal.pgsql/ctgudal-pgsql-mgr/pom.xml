@@ -16,7 +16,7 @@
         <druid-spring-boot.version>1.1.22</druid-spring-boot.version>
         <commons-lang.version>2.6</commons-lang.version>
         <fastjson.version>1.2.70</fastjson.version>
-        <postgresql-jdbc.version>42.2.12</postgresql-jdbc.version>
+        <postgresql-jdbc.version>42.2.25</postgresql-jdbc.version>
         <mysql-jdbc.version>5.1.48</mysql-jdbc.version>
         <curator.version>2.12.0</curator.version>
         <admin-service-base.version>1.1.19-SNAPSHOT</admin-service-base.version>
